@@ -16,10 +16,13 @@ public class MapCore : MonoBehaviour
 	[SerializeField]
 	private List<LaunchZone> m_launchZones = new List<LaunchZone>();
 
+	[SerializeField]
+	private List<ExitPortal> m_exitPortals = new List<ExitPortal>();
+
 	#endregion
 
 	private MapState m_state = MapState.Idle;
-	private SpaceShip m_shipController = null;
+	private SpaceShip m_spaceship = null;
 
 	public MapState State
 	{
@@ -40,6 +43,12 @@ public class MapCore : MonoBehaviour
 		{
 			if (zone != null)
 				zone.OnLaunch = OnLaunch;
+		}
+
+		foreach (ExitPortal exitPortal in m_exitPortals)
+		{
+			if (exitPortal != null)
+				exitPortal.OnEnter = OnExitPortal;
 		}
 
 		yield return null;
@@ -69,16 +78,27 @@ public class MapCore : MonoBehaviour
 			return;
 		}
 
-		if (m_shipController != null)
-			GameObject.Destroy(m_shipController.gameObject);
+		if (m_spaceship != null)
+			GameObject.Destroy(m_spaceship.gameObject);
 
-		m_shipController = GameObject.Instantiate(CommonSettings.Instance.ShipController);
-		m_shipController.transform.position = start;
-		m_shipController.transform.rotation = Quaternion.LookRotation(end - start);
+		m_spaceship = GameObject.Instantiate(CommonSettings.Instance.ShipController);
+		m_spaceship.transform.position = start;
+		m_spaceship.transform.rotation = Quaternion.LookRotation(end - start);
 
-		m_shipController.OnLaunch();
+		m_spaceship.OnLaunch();
 
 		State = MapState.Play;
+	}
+
+	private void OnExitPortal(GameObject go)
+	{
+		if ((m_spaceship == null) || (go == null))
+			return;
+
+		if (go == m_spaceship.gameObject)
+		{
+			Debug.Log("EXIT");
+		}
 	}
 
 	private void OnStateChanged()
@@ -93,10 +113,10 @@ public class MapCore : MonoBehaviour
 					SetLaunchZoneActive(true);
 
 					//
-					if (m_shipController != null)
-						GameObject.Destroy(m_shipController.gameObject);
+					if (m_spaceship != null)
+						GameObject.Destroy(m_spaceship.gameObject);
 
-					m_shipController = null;
+					m_spaceship = null;
 				}
 				break;
 
