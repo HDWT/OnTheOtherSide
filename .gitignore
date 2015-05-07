@@ -50,6 +50,7 @@ Temporary Items
 /assets/UnityVs.meta
 *.csproj
 *.sln
+*.userprefs
 
 # Unreal Engine
 /DerivedDataCache
