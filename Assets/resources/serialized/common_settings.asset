@@ -11,3 +11,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053db64e7733d9240aa8f790c6166b7a, type: 3}
   m_Name: common_settings
   m_EditorClassIdentifier: 
+  m_shipController: {fileID: 11469918, guid: daec33f22aef6974ebf9344a3ef96f60, type: 2}

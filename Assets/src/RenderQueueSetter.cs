@@ -21,7 +21,12 @@ public class RenderQueueSetter : MonoBehaviour
 	void Update()
 	{
 		if ((m_renderer != null) && (m_renderer.sharedMaterial != null))
-			m_renderer.sharedMaterial.renderQueue = m_value;
+		{
+			if (m_value != m_lastValue)
+				m_renderer.sharedMaterial.renderQueue = m_value;
+
+			m_lastValue = m_value;
+		}
 	}
 }
 

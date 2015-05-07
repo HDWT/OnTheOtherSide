@@ -21,11 +21,11 @@ public class CommonSettings : ScriptableObject
 	#region --- Serialized Fields ---
 
 	[SerializeField]
-	private ShipController m_shipController = null;
+	private SpaceShip m_shipController = null;
 
 	#endregion
 
-	public ShipController ShipController { get { return m_shipController; } }
+	public SpaceShip ShipController { get { return m_shipController; } }
 
 	void OnEnable()
 	{

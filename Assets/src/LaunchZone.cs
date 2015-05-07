@@ -45,7 +45,7 @@ public class LaunchZone : MonoBehaviour
 					{
 						Vector3 hitPoint = Vector3.zero;
 
-						if (Raycast(out hitPoint))
+						if (ZoneRaycast(out hitPoint))
 						{
 							hitPoint.y = 0;
 							m_startPoint = hitPoint;
@@ -66,23 +66,28 @@ public class LaunchZone : MonoBehaviour
 					if (Input.GetMouseButtonUp(0))
 					{
 						Vector3 hitPoint = Vector3.zero;
-						bool launch = !Raycast(out hitPoint);
+						bool launch = !ZoneRaycast(out hitPoint);
 
-						hitPoint.y = 0;
 						m_lineRenderer.gameObject.SetActive(false);
-
 						m_state = State.Idle;
 
-						if (launch && OnLaunch != null)
-							OnLaunch(m_startPoint, hitPoint);
+						if (launch && GroundRaycast(out hitPoint))
+						{
+							hitPoint.y = 0;
+
+							if (OnLaunch != null)
+								OnLaunch(m_startPoint, hitPoint);
+						}
 					}
 					else
 					{
-						Ray ray = m_camera.ScreenPointToRay(Input.mousePosition);
-						float distance = 0;
+						Vector3 hitPoint = Vector3.zero;
 
-						if (m_ground.Raycast(ray, out distance))
-							m_lineRenderer.SetPosition(1, ray.GetPoint(distance));
+						if (GroundRaycast(out hitPoint))
+						{
+							hitPoint.y = 0;
+							m_lineRenderer.SetPosition(1, hitPoint);
+						}
 					}
 				}
 				break;
@@ -93,7 +98,21 @@ public class LaunchZone : MonoBehaviour
 		}
 	}
 
-	private bool Raycast(out Vector3 point)
+	private bool GroundRaycast(out Vector3 point)
+	{
+		point = Vector3.zero;
+
+		Ray ray = m_camera.ScreenPointToRay(Input.mousePosition);
+		float distance = 0;
+
+		if (!m_ground.Raycast(ray, out distance))
+			return false;
+
+		point = ray.GetPoint(distance);
+		return true;
+	}
+
+	private bool ZoneRaycast(out Vector3 point)
 	{
 		if (m_camera == null)
 			m_camera = Camera.main;

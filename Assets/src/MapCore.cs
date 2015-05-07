@@ -11,13 +11,15 @@ public enum MapState
 
 public class MapCore : MonoBehaviour
 {
+	#region --- Serialized Fields ---
+
 	[SerializeField]
 	private List<LaunchZone> m_launchZones = new List<LaunchZone>();
 
-	[SerializeField]
-	private ShipController m_shipController = null;
+	#endregion
 
 	private MapState m_state = MapState.Idle;
+	private SpaceShip m_shipController = null;
 
 	public MapState State
 	{
@@ -32,11 +34,6 @@ public class MapCore : MonoBehaviour
 		}
 	}
 
-
-
-
-
-	// Use this for initialization
 	IEnumerator Start()
 	{
 		foreach (LaunchZone zone in m_launchZones)
@@ -47,6 +44,20 @@ public class MapCore : MonoBehaviour
 
 		yield return null;
 
+		State = MapState.Launch;
+	}
+
+	private void SetLaunchZoneActive(bool active)
+	{
+		foreach (LaunchZone zone in m_launchZones)
+		{
+			if (zone != null)
+				zone.gameObject.SetActive(active);
+		}
+	}
+
+	private void Restart()
+	{
 		State = MapState.Launch;
 	}
 
@@ -63,24 +74,11 @@ public class MapCore : MonoBehaviour
 
 		m_shipController = GameObject.Instantiate(CommonSettings.Instance.ShipController);
 		m_shipController.transform.position = start;
-		m_shipController.transform.rotation = Quaternion.FromToRotation(start, end);
+		m_shipController.transform.rotation = Quaternion.LookRotation(end - start);
+
+		m_shipController.OnLaunch();
 
 		State = MapState.Play;
-	}
-
-	// Update is called once per frame
-	void Update()
-	{
-
-	}
-
-	private void SetLaunchZoneActive(bool active)
-	{
-		foreach (LaunchZone zone in m_launchZones)
-		{
-			if (zone != null)
-				zone.gameObject.SetActive(active);
-		}
 	}
 
 	private void OnStateChanged()
@@ -91,7 +89,15 @@ public class MapCore : MonoBehaviour
 				break;
 
 			case MapState.Launch:
-				SetLaunchZoneActive(true);
+				{
+					SetLaunchZoneActive(true);
+
+					//
+					if (m_shipController != null)
+						GameObject.Destroy(m_shipController.gameObject);
+
+					m_shipController = null;
+				}
 				break;
 
 			case MapState.Play:
@@ -102,5 +108,11 @@ public class MapCore : MonoBehaviour
 				Debug.LogError(string.Format("Case for {0} not implemented", m_state));
 				break;
 		}
+	}
+
+	void OnGUI()
+	{
+		if (GUI.Button(new Rect(Screen.width - 100, 0, 100, 20), "Restart"))
+			Restart();
 	}
 }
