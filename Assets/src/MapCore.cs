@@ -14,6 +14,9 @@ public class MapCore : MonoBehaviour
 	#region --- Serialized Fields ---
 
 	[SerializeField]
+	private string m_nextMap = string.Empty;
+
+	[SerializeField]
 	private List<LaunchZone> m_launchZones = new List<LaunchZone>();
 
 	[SerializeField]
@@ -98,6 +101,9 @@ public class MapCore : MonoBehaviour
 		if (go == m_spaceship.gameObject)
 		{
 			Debug.Log("EXIT");
+
+			if (!string.IsNullOrEmpty(m_nextMap))
+				Application.LoadLevel(m_nextMap);
 		}
 	}
 

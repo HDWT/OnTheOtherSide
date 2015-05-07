@@ -160,6 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da03d3b6fdc8a534180952abb5175d25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_nextMap: map02
   m_launchZones:
   - {fileID: 1786595228}
   m_exitPortals:
@@ -271,7 +272,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 419772, guid: c03e263ea61cdff4badbdb44a41a5ef4, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c03e263ea61cdff4badbdb44a41a5ef4, type: 2}
@@ -514,7 +515,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 481498, guid: 013d1f703df9854469bf40e59acda55b, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 013d1f703df9854469bf40e59acda55b, type: 2}

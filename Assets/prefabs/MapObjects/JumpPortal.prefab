@@ -171,6 +171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_targetPortal: {fileID: 0}
   m_exitPoint: {fileID: 488706}
+  m_exitDelay: .100000001
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
