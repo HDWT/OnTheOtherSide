@@ -45,6 +45,11 @@ Temporary Items
 # Unity
 /Temp
 /Library
+/obj
+/assets/UnityVs
+/assets/UnityVs.meta
+*.csproj
+*.sln
 
 # Unreal Engine
 /DerivedDataCache
