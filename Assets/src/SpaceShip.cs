@@ -23,6 +23,9 @@ public class SpaceShip : MonoBehaviour
 	[SerializeField]
 	private float m_bulletMaxAngle = 5;
 
+	[SerializeField]
+	private float m_maxNonVisibleTime = 0.2f;
+
 	#endregion
 
 	private Transform m_transform = null;
@@ -36,8 +39,11 @@ public class SpaceShip : MonoBehaviour
 	private float m_currentSpeed = 0;
 	private bool m_destroyed = false;
 
+	private float m_notVisibleTime = 0;
+
 	public delegate void OnDestroyEventHandler();
 	public OnDestroyEventHandler OnDestroy = null;
+	public System.Action OnGoesAway = null;
 
 	void Awake()
 	{
@@ -64,6 +70,18 @@ public class SpaceShip : MonoBehaviour
 		}
 		else if (m_state == SpaceShipState.Moving)
 		{
+			foreach (var renderer in m_meshRenderers)
+			{
+				if (renderer == null)
+					continue;
+
+				m_notVisibleTime = (renderer.isVisible) ? (0) : (m_notVisibleTime + Time.deltaTime);
+				break;
+			}
+
+			if ((m_notVisibleTime > m_maxNonVisibleTime) && (OnGoesAway != null))
+				OnGoesAway();
+
 			if (m_currentSpeed > 0)
 			{
 				m_transform.Translate(Vector3.forward * m_currentSpeed * Time.deltaTime);
@@ -123,11 +141,11 @@ public class SpaceShip : MonoBehaviour
 
 	void OnGUI()
 	{
-		if (Application.isEditor)
-		{
-			GUILayout.Label("State: " + m_state);
-			GUILayout.Label("Speed: " + m_currentSpeed);
-		}
+		//if (Application.isEditor)
+		//{
+		//	GUILayout.Label("State: " + m_state);
+		//	GUILayout.Label("Speed: " + m_currentSpeed);
+		//}
 	}
 
 	private bool GroundRaycast(out Vector3 point)
