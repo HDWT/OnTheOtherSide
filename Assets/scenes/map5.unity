@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da03d3b6fdc8a534180952abb5175d25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_nextMap: 6
+  m_nextMap: map6
   m_launchZones:
   - {fileID: 1205278587}
   m_exitPortals:
