@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: m_background
+  m_Name: m_beacon
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -138,7 +138,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .00372867589, g: .00227076374, b: .0147058964, a: 1}
+        second: {r: .799307942, g: .808823526, b: .636353791, a: 1}
       data:
         first:
           name: _EmissionColorUI

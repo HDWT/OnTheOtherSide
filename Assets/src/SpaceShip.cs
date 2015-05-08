@@ -20,19 +20,25 @@ public class SpaceShip : MonoBehaviour
 	#endregion
 
 	private Transform m_transform = null;
+	private Rigidbody m_rigidbody = null;
 
 	private SpaceShipState m_state = SpaceShipState.Idle;
 	private float m_currentSpeed = 0;
 
+	public delegate void OnDestroyEventHandler();
+	public OnDestroyEventHandler OnDestroy = null;
+
 	void Awake()
 	{
 		m_transform = GetComponent<Transform>();
+		m_rigidbody = GetComponent<Rigidbody>();
 	}
 
 	public void OnLaunch()
 	{
 		m_currentSpeed = m_launchSpeed;
 		m_state = SpaceShipState.Moving;
+		m_rigidbody.isKinematic = false;
 	}
 
 	void Update()
@@ -56,6 +62,16 @@ public class SpaceShip : MonoBehaviour
 				m_state = SpaceShipState.Idle;
 			}
 		}
+	}
+
+	void OnCollisionEnter(Collision collision)
+	{
+		m_currentSpeed = 0;
+		m_rigidbody.isKinematic = true;
+		m_state = SpaceShipState.Idle;
+
+		if (OnDestroy != null)
+			OnDestroy();
 	}
 
 	void OnGUI()

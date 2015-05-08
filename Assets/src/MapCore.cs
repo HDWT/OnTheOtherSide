@@ -88,9 +88,21 @@ public class MapCore : MonoBehaviour
 		m_spaceship.transform.position = start;
 		m_spaceship.transform.rotation = Quaternion.LookRotation(end - start);
 
+		m_spaceship.OnDestroy = OnSpaceshipDestroyed;
 		m_spaceship.OnLaunch();
 
 		State = MapState.Play;
+	}
+
+	private void OnSpaceshipDestroyed()
+	{
+		if (m_spaceship != null)
+			GameObject.Destroy(m_spaceship.gameObject);
+
+		m_spaceship = null;
+
+		Debug.Log("RESTART");
+		Restart();
 	}
 
 	private void OnExitPortal(GameObject go)
@@ -138,7 +150,18 @@ public class MapCore : MonoBehaviour
 
 	void OnGUI()
 	{
-		if (GUI.Button(new Rect(Screen.width - 100, 0, 100, 20), "Restart"))
+		if (GUI.Button(new Rect(Screen.width - 100, 0, 100, 30), "Restart"))
 			Restart();
+
+		bool guiEnabled = GUI.enabled;
+		GUI.enabled = !string.IsNullOrEmpty(m_nextMap);
+
+		if (GUI.Button(new Rect(Screen.width - 100, 0, 100, 30), "Next"))
+		{
+			if (!string.IsNullOrEmpty(m_nextMap))
+				Application.LoadLevel(m_nextMap);
+		}
+
+		GUI.enabled = guiEnabled;
 	}
 }
