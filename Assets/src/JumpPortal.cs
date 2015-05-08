@@ -34,7 +34,7 @@ public class JumpPortal : MonoBehaviour
 
 		if (collider)
 		{
-			float dot = Vector3.Dot(collider.transform.forward, m_targetPortal.transform.forward);
+			float dot = Vector3.Dot(collider.transform.forward, -transform.forward);
 
 			if (dot > 0)
 			{
