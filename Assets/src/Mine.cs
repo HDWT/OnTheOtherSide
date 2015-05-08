@@ -16,6 +16,9 @@ public class Mine : MonoBehaviour
 	[SerializeField]
 	private float m_drag = 0.1f;
 
+	[SerializeField]
+	private MeshRenderer m_meshRenderer = null;
+
 	private Transform m_transform = null;
 	private Transform m_target = null;
 
@@ -25,6 +28,12 @@ public class Mine : MonoBehaviour
 	void Awake()
 	{
 		m_transform = GetComponent<Transform>();
+	}
+
+	void Start()
+	{
+		if (m_meshRenderer != null)
+			m_meshRenderer.transform.localRotation = Quaternion.Euler(new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
 	}
 
 	void Update()
