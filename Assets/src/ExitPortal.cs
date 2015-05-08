@@ -13,7 +13,7 @@ public class ExitPortal : MonoBehaviour
 	{
 		yield return new WaitForSeconds(m_exitDelay);
 
-		if (OnEnter != null)
+		if ((OnEnter != null) && (collider != null))
 			OnEnter(collider.gameObject);
 	}
 

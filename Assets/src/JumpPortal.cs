@@ -34,8 +34,11 @@ public class JumpPortal : MonoBehaviour
 
 		if (collider)
 		{
+			float angle = 180 - collider.transform.rotation.eulerAngles.y - transform.rotation.eulerAngles.y;
+
 			collider.transform.position = m_targetPortal.m_exitPoint.position;
-			collider.transform.Rotate(Vector3.up, m_targetPortal.transform.rotation.eulerAngles.y);
+			collider.transform.LookAt(m_targetPortal.transform.forward);
+			collider.transform.Rotate(Vector3.up, angle);
 		}
 
 		//Debug.Log("On enter " + collider.name + " " + this.name);
