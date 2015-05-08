@@ -70,8 +70,7 @@ public class MapCore : MonoBehaviour
 
 	private void Restart()
 	{
-		State = MapState.Launch;
-		SceneFolder.Instance.DestroyFolder("Bullets");
+		Application.LoadLevel(Application.loadedLevelName);
 	}
 
 	private void OnLaunch(Vector3 start, Vector3 end)

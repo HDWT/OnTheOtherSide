@@ -13,41 +13,54 @@ public class Mine : MonoBehaviour
 	[SerializeField]
 	private float m_speed = 10;
 
+	[SerializeField]
+	private float m_drag = 0.1f;
+
 	private Transform m_transform = null;
 	private Transform m_target = null;
+
+	private float m_currentSpeed = 0;
+	private Vector3 m_lastDirection = Vector3.zero;
 
 	void Awake()
 	{
 		m_transform = GetComponent<Transform>();
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 		if (m_target != null)
 		{
-			float distance = Vector3.Distance(m_transform.position, m_target.position);
-			//Quaternion.
-
-			m_transform.Translate(Vector3.Normalize(m_target.position - m_transform.position) * m_speed * Time.deltaTime);
+			m_lastDirection = Vector3.Normalize(m_target.position - m_transform.position);
+			m_transform.Translate(m_lastDirection * m_speed * Time.deltaTime);
+		}
+		else if (m_currentSpeed > 0)
+		{
+			m_transform.Translate(m_lastDirection * m_currentSpeed * Time.deltaTime);
+			m_currentSpeed -= m_drag * Time.deltaTime * 50;
 		}
 	}
 
 	void OnTriggerEnter(Collider collider)
 	{
 		if (collider && collider.gameObject.layer == (int)LayerIndex.Player)
+		{
 			m_target = collider.transform;
+			m_currentSpeed = 0;
+		}
 	}
 
 	void OnTriggerExit(Collider collider)
 	{
 		if (collider && collider.gameObject.layer == (int)LayerIndex.Player)
+		{
 			m_target = null;
+			m_currentSpeed = m_speed;
+		}
 	}
 
-	void OnGUI()
+	void OnCollisionEnter(Collision collision)
 	{
-		if (m_target != null)
-			GUILayout.Label("Mine distance: " + Vector3.Distance(m_transform.position, m_target.position));
+		GameObject.Destroy(this.gameObject);
 	}
 }
