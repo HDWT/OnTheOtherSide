@@ -17,10 +17,19 @@ public class SpaceShip : MonoBehaviour
 	[SerializeField]
 	private float m_drag = 0.1f;
 
+	[SerializeField]
+	private Transform m_muzzle = null;
+
+	[SerializeField]
+	private float m_bulletMaxAngle = 5;
+
 	#endregion
 
 	private Transform m_transform = null;
 	private Rigidbody m_rigidbody = null;
+
+	private Camera m_camera = null;
+	private Plane m_ground = new Plane(Vector3.up, Vector3.zero);
 
 	private SpaceShipState m_state = SpaceShipState.Idle;
 	private float m_currentSpeed = 0;
@@ -56,11 +65,26 @@ public class SpaceShip : MonoBehaviour
 				if (m_drag > 0)
 					m_currentSpeed -= m_drag * Time.deltaTime * 50;
 			}
-			
+
 			if (m_currentSpeed <= 0)
 			{
 				m_currentSpeed = 0;
 				m_state = SpaceShipState.Idle;
+			}
+			else
+			{
+				Vector3 hitPoint = Vector3.zero;
+
+				if (Input.GetMouseButtonDown(0) && GroundRaycast(out hitPoint))
+				{
+					Bullet bullet = GameObject.Instantiate(CommonSettings.Instance.Bullet) as Bullet;
+
+					bullet.transform.position = m_muzzle.position;
+					bullet.transform.rotation = m_muzzle.rotation;
+					bullet.transform.Rotate(Vector3.up, Random.Range(-m_bulletMaxAngle, m_bulletMaxAngle));
+
+					SceneFolder.Instance.Add(bullet.gameObject, "Bullets");
+				}
 			}
 		}
 	}
@@ -77,7 +101,27 @@ public class SpaceShip : MonoBehaviour
 
 	void OnGUI()
 	{
-		GUILayout.Label("State: " + m_state);
-		GUILayout.Label("Speed: " + m_currentSpeed);
+		if (Application.isEditor)
+		{
+			GUILayout.Label("State: " + m_state);
+			GUILayout.Label("Speed: " + m_currentSpeed);
+		}
+	}
+
+	private bool GroundRaycast(out Vector3 point)
+	{
+		if (m_camera == null)
+			m_camera = Camera.main;
+
+		point = Vector3.zero;
+
+		Ray ray = m_camera.ScreenPointToRay(Input.mousePosition);
+		float distance = 0;
+
+		if (!m_ground.Raycast(ray, out distance))
+			return false;
+
+		point = ray.GetPoint(distance);
+		return true;
 	}
 }

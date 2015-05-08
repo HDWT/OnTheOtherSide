@@ -23,9 +23,13 @@ public class CommonSettings : ScriptableObject
 	[SerializeField]
 	private SpaceShip m_shipController = null;
 
+	[SerializeField]
+	private Bullet m_bullet = null;
+
 	#endregion
 
 	public SpaceShip ShipController { get { return m_shipController; } }
+	public Bullet Bullet { get { return m_bullet; } }
 
 	void OnEnable()
 	{

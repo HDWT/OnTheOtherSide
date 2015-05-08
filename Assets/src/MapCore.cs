@@ -71,6 +71,7 @@ public class MapCore : MonoBehaviour
 	private void Restart()
 	{
 		State = MapState.Launch;
+		SceneFolder.Instance.DestroyFolder("Bullets");
 	}
 
 	private void OnLaunch(Vector3 start, Vector3 end)
@@ -101,7 +102,7 @@ public class MapCore : MonoBehaviour
 
 		m_spaceship = null;
 
-		Debug.Log("RESTART");
+		Debug.Log("RESTART - Space ship destroyed");
 		Restart();
 	}
 
@@ -112,7 +113,7 @@ public class MapCore : MonoBehaviour
 
 		if (go == m_spaceship.gameObject)
 		{
-			Debug.Log("EXIT");
+			Debug.Log("EXIT Portal. Next level " + m_nextMap);
 
 			if (!string.IsNullOrEmpty(m_nextMap))
 				Application.LoadLevel(m_nextMap);
