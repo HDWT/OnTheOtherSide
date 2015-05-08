@@ -32,8 +32,11 @@ public class JumpPortal : MonoBehaviour
 
 		yield return new WaitForSeconds(m_exitDelay);
 
-		collider.transform.position = m_targetPortal.m_exitPoint.position;
-		collider.transform.Rotate(Vector3.up, m_targetPortal.transform.rotation.eulerAngles.y);
+		if (collider)
+		{
+			collider.transform.position = m_targetPortal.m_exitPoint.position;
+			collider.transform.Rotate(Vector3.up, m_targetPortal.transform.rotation.eulerAngles.y);
+		}
 
 		//Debug.Log("On enter " + collider.name + " " + this.name);
 	}

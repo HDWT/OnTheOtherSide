@@ -156,7 +156,7 @@ public class MapCore : MonoBehaviour
 		bool guiEnabled = GUI.enabled;
 		GUI.enabled = !string.IsNullOrEmpty(m_nextMap);
 
-		if (GUI.Button(new Rect(Screen.width - 100, 0, 100, 30), "Next"))
+		if (GUI.Button(new Rect(Screen.width - 100, 30, 100, 30), "Next"))
 		{
 			if (!string.IsNullOrEmpty(m_nextMap))
 				Application.LoadLevel(m_nextMap);

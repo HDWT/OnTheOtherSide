@@ -53,7 +53,8 @@ public class SpaceShip : MonoBehaviour
 			{
 				m_transform.Translate(Vector3.forward * m_currentSpeed * Time.deltaTime);
 
-				m_currentSpeed -= m_drag * Time.deltaTime * 50;
+				if (m_drag > 0)
+					m_currentSpeed -= m_drag * Time.deltaTime * 50;
 			}
 			
 			if (m_currentSpeed <= 0)
