@@ -88,10 +88,17 @@ public class MapCore : MonoBehaviour
 		m_spaceship.transform.position = start;
 		m_spaceship.transform.rotation = Quaternion.LookRotation(end - start);
 
+		m_spaceship.OnGoesAway = OnSpaceshipGoesAway;
 		m_spaceship.OnDestroy = OnSpaceshipDestroyed;
 		m_spaceship.OnLaunch();
 
 		State = MapState.Play;
+	}
+
+	private void OnSpaceshipGoesAway()
+	{
+		Debug.Log("RESTART - Space ship goes away");
+		Restart();
 	}
 
 	private void OnSpaceshipDestroyed()
