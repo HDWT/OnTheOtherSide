@@ -157,7 +157,7 @@ public class MapCore : MonoBehaviour
 
 	void OnGUI()
 	{
-		if (GUI.Button(new Rect(Screen.width - 100, 0, 100, 30), "Restart"))
+		if (GUI.Button(new Rect(Screen.width - 100, 0, 100, 30), "Restart Level"))
 			Restart();
 
 		bool guiEnabled = GUI.enabled;
@@ -171,7 +171,10 @@ public class MapCore : MonoBehaviour
 
 		GUI.enabled = guiEnabled;
 
-		if (GUI.Button(new Rect(Screen.width - 100, 60, 100, 30), "Quit"))
+		if (GUI.Button(new Rect(Screen.width - 100, 60, 100, 30), "Restart Game"))
+			Application.LoadLevel(CommonSettings.Instance.FirstLevelName);
+
+		if (GUI.Button(new Rect(Screen.width - 100, 90, 100, 30), "Quit"))
 			Application.Quit();
 	}
 }
