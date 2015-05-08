@@ -576,7 +576,7 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 0
     y:
-      scalar: 100
+      scalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:

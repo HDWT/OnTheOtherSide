@@ -27,12 +27,14 @@ public class SpaceShip : MonoBehaviour
 
 	private Transform m_transform = null;
 	private Rigidbody m_rigidbody = null;
+	private Renderer[] m_meshRenderers = null;
 
 	private Camera m_camera = null;
 	private Plane m_ground = new Plane(Vector3.up, Vector3.zero);
 
 	private SpaceShipState m_state = SpaceShipState.Idle;
 	private float m_currentSpeed = 0;
+	private bool m_destroyed = false;
 
 	public delegate void OnDestroyEventHandler();
 	public OnDestroyEventHandler OnDestroy = null;
@@ -41,6 +43,7 @@ public class SpaceShip : MonoBehaviour
 	{
 		m_transform = GetComponent<Transform>();
 		m_rigidbody = GetComponent<Rigidbody>();
+		m_meshRenderers = GetComponentsInChildren<Renderer>();
 	}
 
 	public void OnLaunch()
@@ -95,14 +98,18 @@ public class SpaceShip : MonoBehaviour
 		}
 	}
 
-	private bool m_destroyed = false;
-
 	IEnumerator OnCollisionEnter(Collision collision)
 	{
 		m_currentSpeed = 0;
 		m_rigidbody.isKinematic = true;
 		m_state = SpaceShipState.Idle;
 		m_destroyed = true;
+
+		foreach (var renderer in m_meshRenderers)
+		{
+			if (renderer)
+				renderer.enabled = false;
+		}
 
 		GameObject explosion = GameObject.Instantiate(CommonSettings.Instance.ExplosionEffect) as GameObject;
 		explosion.transform.position = m_transform.position;
