@@ -9,3 +9,7 @@ EditorBuildSettings:
     path: Assets/scenes/map01.unity
   - enabled: 1
     path: Assets/scenes/map02.unity
+  - enabled: 1
+    path: Assets/scenes/level01.unity
+  - enabled: 1
+    path: Assets/scenes/level02.unity
