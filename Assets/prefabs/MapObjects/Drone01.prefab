@@ -40,6 +40,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 484752}
+  - 65: {fileID: 6559380}
   m_Layer: 0
   m_Name: Drone01
   m_TagString: Untagged
@@ -116,6 +117,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 123214}
   m_Mesh: {fileID: 4300000, guid: 9a16e4613dbfd29429ef3db751259a7f, type: 3}
+--- !u!65 &6559380
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150736}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 3, z: 3}
+  m_Center: {x: 0, y: -.589999974, z: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
