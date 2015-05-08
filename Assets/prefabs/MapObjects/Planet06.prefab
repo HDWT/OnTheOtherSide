@@ -8,6 +8,11 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 430864}
+  - 135: {fileID: 13539114}
+  - 135: {fileID: 13559416}
+  - 65: {fileID: 6519532}
+  - 65: {fileID: 6575686}
+  - 65: {fileID: 6526400}
   m_Layer: 0
   m_Name: Planet06
   m_TagString: Untagged
@@ -40,7 +45,6 @@ GameObject:
   - 4: {fileID: 492674}
   - 33: {fileID: 3376924}
   - 23: {fileID: 2306708}
-  - 64: {fileID: 6458322}
   m_Layer: 0
   m_Name: planet06
   m_TagString: Untagged
@@ -117,18 +121,66 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 197574}
   m_Mesh: {fileID: 4300000, guid: 0d0d3205fc067754198932ca7faa7d56, type: 3}
---- !u!64 &6458322
-MeshCollider:
+--- !u!65 &6519532
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 197574}
+  m_GameObject: {fileID: 144484}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 0d0d3205fc067754198932ca7faa7d56, type: 3}
+  m_Size: {x: 4.5, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 4.5}
+--- !u!65 &6526400
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 144484}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 8.69999981, y: 1, z: 7.80000019}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &6575686
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 144484}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.5, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: -4.5}
+--- !u!135 &13539114
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 144484}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.74000001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &13559416
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 144484}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: .349999994
+  m_Center: {x: -3.13000011, y: 2.96000004, z: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -157,6 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_speed: 5
   m_drag: .100000001
+  m_meshRenderer: {fileID: 2385424}
 --- !u!135 &13547378
 SphereCollider:
   m_ObjectHideFlags: 1
