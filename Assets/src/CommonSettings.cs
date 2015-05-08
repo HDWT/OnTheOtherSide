@@ -29,11 +29,15 @@ public class CommonSettings : ScriptableObject
 	[SerializeField]
 	private GameObject m_explosionEffect = null;
 
+	[SerializeField]
+	private string m_firstLevelName = string.Empty;
+
 	#endregion
 
 	public SpaceShip	ShipController	{ get { return m_shipController; } }
 	public Bullet		Bullet			{ get { return m_bullet; } }
 	public GameObject	ExplosionEffect { get { return m_explosionEffect; } }
+	public string		FirstLevelName	{ get { return m_firstLevelName; } }
 
 	void OnEnable()
 	{
