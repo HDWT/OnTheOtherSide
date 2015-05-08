@@ -11,10 +11,15 @@ public class ExitPortal : MonoBehaviour
 
 	IEnumerator OnTriggerEnter(Collider collider)
 	{
+		if (collider.gameObject.layer == (int)LayerIndex.Player)
+			collider.enabled = false;
+
 		yield return new WaitForSeconds(m_exitDelay);
 
 		if ((OnEnter != null) && (collider != null))
+		{
 			OnEnter(collider.gameObject);
+		}
 	}
 
 	void OnTriggerExit(Collider collider)
