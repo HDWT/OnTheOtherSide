@@ -52,6 +52,9 @@ public class SpaceShip : MonoBehaviour
 
 	void Update()
 	{
+		if (m_destroyed)
+			return;
+
 		if (m_state == SpaceShipState.Idle)
 		{
 
@@ -92,11 +95,20 @@ public class SpaceShip : MonoBehaviour
 		}
 	}
 
-	void OnCollisionEnter(Collision collision)
+	private bool m_destroyed = false;
+
+	IEnumerator OnCollisionEnter(Collision collision)
 	{
 		m_currentSpeed = 0;
 		m_rigidbody.isKinematic = true;
 		m_state = SpaceShipState.Idle;
+		m_destroyed = true;
+
+		GameObject explosion = GameObject.Instantiate(CommonSettings.Instance.ExplosionEffect) as GameObject;
+		explosion.transform.position = m_transform.position;
+		explosion.transform.rotation = m_transform.rotation;
+
+		yield return new WaitForSeconds(1);
 
 		if (OnDestroy != null)
 			OnDestroy();

@@ -26,10 +26,14 @@ public class CommonSettings : ScriptableObject
 	[SerializeField]
 	private Bullet m_bullet = null;
 
+	[SerializeField]
+	private GameObject m_explosionEffect = null;
+
 	#endregion
 
-	public SpaceShip ShipController { get { return m_shipController; } }
-	public Bullet Bullet { get { return m_bullet; } }
+	public SpaceShip	ShipController	{ get { return m_shipController; } }
+	public Bullet		Bullet			{ get { return m_bullet; } }
+	public GameObject	ExplosionEffect { get { return m_explosionEffect; } }
 
 	void OnEnable()
 	{
