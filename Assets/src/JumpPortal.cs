@@ -20,7 +20,7 @@ public class JumpPortal : MonoBehaviour
 
 	public bool IsValid { get { return m_targetPortal != null; } }
 
-	void OnAwake()
+	void Awake()
 	{
 		m_transform = GetComponent<Transform>();
 	}
@@ -34,10 +34,10 @@ public class JumpPortal : MonoBehaviour
 
 		if (collider)
 		{
-			float angle = 180 - collider.transform.rotation.eulerAngles.y - transform.rotation.eulerAngles.y;
+			float angle = 180 + collider.transform.rotation.eulerAngles.y - m_transform.rotation.eulerAngles.y;
 
 			collider.transform.position = m_targetPortal.m_exitPoint.position;
-			collider.transform.LookAt(m_targetPortal.transform.forward);
+			collider.transform.rotation = m_targetPortal.transform.rotation;
 			collider.transform.Rotate(Vector3.up, angle);
 		}
 

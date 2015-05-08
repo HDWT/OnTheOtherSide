@@ -163,5 +163,8 @@ public class MapCore : MonoBehaviour
 		}
 
 		GUI.enabled = guiEnabled;
+
+		if (GUI.Button(new Rect(Screen.width - 100, 60, 100, 30), "Quit"))
+			Application.Quit();
 	}
 }
