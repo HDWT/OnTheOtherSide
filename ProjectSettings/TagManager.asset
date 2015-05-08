@@ -16,8 +16,8 @@ TagManager:
   - Player
   - Portal
   - MouseInput
-  - 
-  - 
+  - Bullet
+  - Enemy
   - 
   - 
   - 
