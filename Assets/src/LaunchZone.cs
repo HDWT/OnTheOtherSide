@@ -3,7 +3,7 @@ using System.Collections;
 
 public class LaunchZone : MonoBehaviour
 {
-	const float RaycastDistance = 100.0f;
+	const float RaycastDistance = 300.0f;
 
 	private enum State
 	{
