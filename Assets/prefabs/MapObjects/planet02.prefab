@@ -57,7 +57,7 @@ GameObject:
   - 4: {fileID: 483008}
   - 135: {fileID: 13507494}
   m_Layer: 0
-  m_Name: Planet02
+  m_Name: planet02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
