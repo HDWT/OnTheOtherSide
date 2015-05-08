@@ -75,13 +75,16 @@ public class SpaceShip : MonoBehaviour
 			{
 				Vector3 hitPoint = Vector3.zero;
 
-				if (Input.GetMouseButtonDown(0) && GroundRaycast(out hitPoint))
+				if ((Input.GetMouseButtonDown(0) && GroundRaycast(out hitPoint)) || Input.GetKeyDown(KeyCode.Space))
 				{
 					Bullet bullet = GameObject.Instantiate(CommonSettings.Instance.Bullet) as Bullet;
 
 					bullet.transform.position = m_muzzle.position;
 					bullet.transform.rotation = m_muzzle.rotation;
-					bullet.transform.Rotate(Vector3.up, Random.Range(-m_bulletMaxAngle, m_bulletMaxAngle));
+
+					float rotation = Random.Range(-m_bulletMaxAngle, m_bulletMaxAngle);
+
+					bullet.transform.Rotate(Vector3.up, rotation);
 
 					SceneFolder.Instance.Add(bullet.gameObject, "Bullets");
 				}
