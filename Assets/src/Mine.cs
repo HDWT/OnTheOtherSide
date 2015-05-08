@@ -1,0 +1,66 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public enum LayerIndex
+{
+	Player = 8,
+	Portal = 9,
+	Bullet = 11,
+}
+
+public class Mine : MonoBehaviour
+{
+	[SerializeField]
+	private float m_speed = 10;
+
+	[SerializeField]
+	private float m_drag = 0.1f;
+
+	private Transform m_transform = null;
+	private Transform m_target = null;
+
+	private float m_currentSpeed = 0;
+	private Vector3 m_lastDirection = Vector3.zero;
+
+	void Awake()
+	{
+		m_transform = GetComponent<Transform>();
+	}
+
+	void Update()
+	{
+		if (m_target != null)
+		{
+			m_lastDirection = Vector3.Normalize(m_target.position - m_transform.position);
+			m_transform.Translate(m_lastDirection * m_speed * Time.deltaTime);
+		}
+		else if (m_currentSpeed > 0)
+		{
+			m_transform.Translate(m_lastDirection * m_currentSpeed * Time.deltaTime);
+			m_currentSpeed -= m_drag * Time.deltaTime * 50;
+		}
+	}
+
+	void OnTriggerEnter(Collider collider)
+	{
+		if (collider && collider.gameObject.layer == (int)LayerIndex.Player)
+		{
+			m_target = collider.transform;
+			m_currentSpeed = 0;
+		}
+	}
+
+	void OnTriggerExit(Collider collider)
+	{
+		if (collider && collider.gameObject.layer == (int)LayerIndex.Player)
+		{
+			m_target = null;
+			m_currentSpeed = m_speed;
+		}
+	}
+
+	void OnCollisionEnter(Collision collision)
+	{
+		GameObject.Destroy(this.gameObject);
+	}
+}
