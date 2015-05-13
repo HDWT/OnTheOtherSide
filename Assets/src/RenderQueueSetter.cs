@@ -7,7 +7,7 @@ public class RenderQueueSetter : MonoBehaviour
 	private int m_value = 3000;
 
 	private Renderer m_renderer = null;
-	private int m_lastValue = 0;
+	private int m_lastValue = -1;
 
 	void OnEnable()
 	{

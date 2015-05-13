@@ -12,6 +12,9 @@ public class SpaceShip : MonoBehaviour
 	#region --- Serialized Fields ---
 
 	[SerializeField]
+	private GravitySense m_gravitySense = null;
+
+	[SerializeField]
 	private float m_launchSpeed = 10;
 
 	[SerializeField]
@@ -84,6 +87,22 @@ public class SpaceShip : MonoBehaviour
 
 			if (m_currentSpeed > 0)
 			{
+				Vector3 gravity = Vector3.zero;
+
+				if (m_gravitySense != null)
+				{
+					gravity = m_gravitySense.GetPower();
+					gravity.y = 0;
+
+					if (gravity != Vector3.zero)
+					{
+						Quaternion lookRotation = Quaternion.LookRotation(m_transform.forward + Vector3.Normalize(gravity));
+						m_transform.rotation = Quaternion.Lerp(m_transform.rotation, lookRotation, Time.deltaTime * Vector3.Magnitude(gravity));
+
+						Debug.DrawLine(m_transform.position, m_transform.position + m_transform.forward + gravity, Color.green);
+					}
+				}
+
 				m_transform.Translate(Vector3.forward * m_currentSpeed * Time.deltaTime);
 
 				if (m_drag > 0)
