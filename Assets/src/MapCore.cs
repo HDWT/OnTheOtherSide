@@ -157,13 +157,13 @@ public class MapCore : MonoBehaviour
 
 	void OnGUI()
 	{
-		if (GUI.Button(new Rect(Screen.width - 100, 0, 100, 30), "Restart Level"))
+		if (DebugGuiDrawer.Button(new Rect(0, 0, 100, 30), "Restart Level", TextAnchor.UpperRight))
 			Restart();
 
 		bool guiEnabled = GUI.enabled;
 		GUI.enabled = !string.IsNullOrEmpty(m_nextMap);
 
-		if (GUI.Button(new Rect(Screen.width - 100, 30, 100, 30), "Next"))
+		if (DebugGuiDrawer.Button(new Rect(0, 30, 100, 30), "Next", TextAnchor.UpperRight))
 		{
 			if (!string.IsNullOrEmpty(m_nextMap))
 				Application.LoadLevel(m_nextMap);
@@ -171,10 +171,10 @@ public class MapCore : MonoBehaviour
 
 		GUI.enabled = guiEnabled;
 
-		if (GUI.Button(new Rect(Screen.width - 100, 60, 100, 30), "Restart Game"))
+		if (DebugGuiDrawer.Button(new Rect(0, 60, 100, 30), "Restart Game", TextAnchor.UpperRight))
 			Application.LoadLevel(CommonSettings.Instance.FirstLevelName);
 
-		if (GUI.Button(new Rect(Screen.width - 100, 90, 100, 30), "Quit"))
+		if (DebugGuiDrawer.Button(new Rect(0, 90, 100, 30), "Quit", TextAnchor.UpperRight))
 			Application.Quit();
 	}
 }
