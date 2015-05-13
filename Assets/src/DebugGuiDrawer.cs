@@ -2,8 +2,8 @@
 
 public static class DebugGuiDrawer
 {
-	public const int DefaultWidth = 640;
-	public const int DefaultHeight = 960;
+	public const int DefaultWidth = 960;
+	public const int DefaultHeight = 540;
 
 	private const float MinRatio = 0.5f;
 	private const float MaxRatio = 3.0f;
