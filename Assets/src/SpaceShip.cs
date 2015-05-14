@@ -99,7 +99,7 @@ public class SpaceShip : MonoBehaviour
 						Quaternion lookRotation = Quaternion.LookRotation(m_transform.forward + Vector3.Normalize(gravity));
 						m_transform.rotation = Quaternion.Lerp(m_transform.rotation, lookRotation, Time.deltaTime * Vector3.Magnitude(gravity));
 
-						Debug.DrawLine(m_transform.position, m_transform.position + m_transform.forward + gravity, Color.green);
+						Debug.DrawLine(m_transform.position, m_transform.position + m_transform.forward + Vector3.Normalize(gravity), Color.green);
 					}
 				}
 

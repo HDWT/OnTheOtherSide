@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 400838}
   - 114: {fileID: 11462362}
   - 65: {fileID: 6561618}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Gravity Sense
   m_TagString: Untagged
   m_Icon: {fileID: 0}

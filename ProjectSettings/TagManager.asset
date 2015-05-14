@@ -18,8 +18,8 @@ TagManager:
   - MouseInput
   - Bullet
   - Enemy
-  - 
-  - 
+  - GravityField
+  - GravitySense
   - 
   - 
   - 

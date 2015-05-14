@@ -9,9 +9,6 @@ public class JumpPortal : MonoBehaviour
 	private JumpPortal m_targetPortal = null;
 
 	[SerializeField]
-	private Transform m_exitPoint = null;
-
-	[SerializeField]
 	private float m_exitDelay = 0.3f;
 
 	#endregion
@@ -34,27 +31,29 @@ public class JumpPortal : MonoBehaviour
 
 		if (collider)
 		{
-			float dot = Vector3.Dot(collider.transform.forward, -transform.forward);
+			bool moveInPortal = Vector3.Dot(collider.transform.forward, -transform.forward) > 0;
 
-			if (dot > 0)
+			if (moveInPortal)
 			{
-				float angle = 180 + collider.transform.rotation.eulerAngles.y - m_transform.rotation.eulerAngles.y;
+				Transform objTransform = collider.GetComponent<Transform>();
 
-				collider.transform.position = m_targetPortal.m_exitPoint.position;
-				collider.transform.rotation = m_targetPortal.transform.rotation;
-				collider.transform.Rotate(Vector3.up, angle);
+				float angle = 180 + objTransform.rotation.eulerAngles.y - m_transform.rotation.eulerAngles.y;
+
+				objTransform.rotation = m_targetPortal.transform.rotation;
+				objTransform.Rotate(Vector3.up, angle);
+
+				//
+				Vector3 exitPoint = m_transform.InverseTransformVector(objTransform.position - m_transform.position);
+
+				objTransform.position = m_targetPortal.m_transform.position + m_targetPortal.m_transform.forward * exitPoint.z + m_targetPortal.transform.right * exitPoint.x;
 			}
 		}
-
-		//Debug.Log("On enter " + collider.name + " " + this.name);
 	}
 
 	void OnTriggerExit(Collider collider)
 	{
 		if (!IsValid)
 			return;
-
-		//Debug.Log("On exit " + collider.name + " " + this.name);
 	}
 
 	#if UNITY_EDITOR
@@ -73,7 +72,7 @@ public class JumpPortal : MonoBehaviour
 		Color gizmosColor = Gizmos.color;
 		Gizmos.color = Color.green;
 
-		Gizmos.DrawLine(m_transform.position, m_targetPortal.m_exitPoint.position);
+		Gizmos.DrawLine(m_transform.position, m_targetPortal.m_transform.position);
 		Gizmos.color = gizmosColor;
 	}
 
