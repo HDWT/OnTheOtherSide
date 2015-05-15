@@ -21,6 +21,9 @@ public class LaunchZone : MonoBehaviour
 	[SerializeField]
 	private LineRenderer m_lineRenderer = null;
 
+	[SerializeField]
+	private float m_lineExtraLength = 0;
+
 	#endregion
 
 	private State	m_state			= State.Idle;
@@ -86,7 +89,7 @@ public class LaunchZone : MonoBehaviour
 						if (GroundRaycast(out hitPoint))
 						{
 							hitPoint.y = 0;
-							m_lineRenderer.SetPosition(1, hitPoint);
+							m_lineRenderer.SetPosition(1, hitPoint + Vector3.Normalize(hitPoint - m_startPoint) * m_lineExtraLength);
 						}
 					}
 				}
