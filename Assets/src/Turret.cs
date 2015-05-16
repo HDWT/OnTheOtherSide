@@ -10,6 +10,9 @@ public class Turret : MonoBehaviour
 	private List<Transform> m_muzzles = new List<Transform>();
 
 	[SerializeField]
+	private LineOfSight m_lineOfSight = null;
+
+	[SerializeField]
 	private float m_shootsPerSecond = 2;
 
 	[SerializeField]
@@ -23,11 +26,19 @@ public class Turret : MonoBehaviour
 	private Transform m_transform = null;
 	private int m_muzzleIndex = 0;
 	private float m_timeLeft = 0;
+	private bool m_canShoot = true;
 
 	void Awake()
 	{
 		m_transform = GetComponent<Transform>();
 		m_timeLeft = 1.0f / m_shootsPerSecond;
+		
+		if (m_lineOfSight != null)
+		{
+			m_lineOfSight.OnEnter = EnterLineOfSight;
+			m_lineOfSight.OnExit = ExitLineOfSighe;
+			m_canShoot = false;
+		}
 	}
 
 	void Update()
@@ -37,7 +48,7 @@ public class Turret : MonoBehaviour
 
 		m_timeLeft -= Time.deltaTime;
 
-		if (m_timeLeft > 0)
+		if (!m_canShoot || m_timeLeft > 0)
 			return;
 
 		if (m_oneShot)
@@ -56,6 +67,18 @@ public class Turret : MonoBehaviour
 		}
 
 		m_timeLeft = 1.0f / m_shootsPerSecond;
+	}
+
+	private void EnterLineOfSight(Collider collider)
+	{
+		if (collider && LayerUtils.Is(collider.gameObject, LayerType.Player))
+			m_canShoot = true;
+	}
+
+	private void ExitLineOfSighe(Collider collider)
+	{
+		if (collider && LayerUtils.Is(collider.gameObject, LayerType.Player))
+			m_canShoot = false;
 	}
 
 	private void Shoot(Transform muzzle)
