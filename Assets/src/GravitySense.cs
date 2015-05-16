@@ -10,6 +10,8 @@ public class GravitySense : MonoBehaviour
 	void Awake()
 	{
 		m_transform = GetComponent<Transform>();
+
+		LayerUtils.CheckWarning(this.gameObject, LayerType.GravitySense);
 	}
 
 	void OnDestroy()

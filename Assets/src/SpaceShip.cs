@@ -42,6 +42,9 @@ public class SpaceShip : MonoBehaviour
 	private float m_currentSpeed = 0;
 	private bool m_destroyed = false;
 
+	private bool m_canShoot = true;
+	private bool m_bulletCollisionEnabled = true;
+
 	private float m_notVisibleTime = 0;
 
 	public delegate void OnDestroyEventHandler();
@@ -60,6 +63,8 @@ public class SpaceShip : MonoBehaviour
 		m_currentSpeed = m_launchSpeed;
 		m_state = SpaceShipState.Moving;
 		m_rigidbody.isKinematic = false;
+		m_canShoot = true;
+		m_bulletCollisionEnabled = true;
 	}
 
 	void Update()
@@ -118,29 +123,36 @@ public class SpaceShip : MonoBehaviour
 			{
 				Vector3 hitPoint = Vector3.zero;
 
-				if ((Input.GetMouseButtonDown(0) && GroundRaycast(out hitPoint)) || Input.GetKeyDown(KeyCode.Space))
-				{
-					Bullet bullet = GameObject.Instantiate(CommonSettings.Instance.Bullet) as Bullet;
-
-					bullet.transform.position = m_muzzle.position;
-					bullet.transform.rotation = m_muzzle.rotation;
-
-					float rotation = Random.Range(-m_bulletMaxAngle, m_bulletMaxAngle);
-
-					bullet.transform.Rotate(Vector3.up, rotation);
-
-					SceneFolder.Instance.Add(bullet.gameObject, "Bullets");
-				}
+				if (m_canShoot && (Input.GetMouseButtonDown(0) && GroundRaycast(out hitPoint)) || Input.GetKeyDown(KeyCode.Space))
+					Shoot();
 			}
 		}
 	}
 
+	private void Shoot()
+	{
+		Bullet bullet = GameObject.Instantiate(CommonSettings.Instance.Bullet) as Bullet;
+
+		bullet.transform.position = m_muzzle.position;
+		bullet.transform.rotation = m_muzzle.rotation;
+
+		float rotation = Random.Range(-m_bulletMaxAngle, m_bulletMaxAngle);
+
+		bullet.transform.Rotate(Vector3.up, rotation);
+
+		SceneFolder.Instance.Add(bullet.gameObject, "Bullets");
+	}
+
 	IEnumerator OnCollisionEnter(Collision collision)
 	{
+		if (!m_bulletCollisionEnabled && LayerUtils.Is(collision.gameObject, LayerType.Bullet))
+			yield break;
+
 		m_currentSpeed = 0;
 		m_rigidbody.isKinematic = true;
 		m_state = SpaceShipState.Idle;
 		m_destroyed = true;
+		m_canShoot = false;
 
 		foreach (var renderer in m_meshRenderers)
 		{
@@ -156,6 +168,22 @@ public class SpaceShip : MonoBehaviour
 
 		if (OnDestroy != null)
 			OnDestroy();
+	}
+
+	void OnTeleport()
+	{
+		StartCoroutine(DisableShooting(0.2f));
+	}
+
+	IEnumerator DisableShooting(float time)
+	{
+		m_canShoot = false;
+		m_bulletCollisionEnabled = false;
+
+		yield return new WaitForSeconds(time);
+
+		m_canShoot = true;
+		m_bulletCollisionEnabled = true;
 	}
 
 	void OnGUI()

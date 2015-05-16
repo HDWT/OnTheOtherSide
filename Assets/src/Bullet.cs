@@ -58,7 +58,7 @@ public class Bullet : MonoBehaviour
 
 	void OnTeleport()
 	{
-		DisableCollider(0.1f);
+
 	}
 
 	void OnCollisionEnter(Collision collision)

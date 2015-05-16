@@ -1,13 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum LayerIndex
-{
-	Player = 8,
-	Portal = 9,
-	Bullet = 11,
-}
-
 public class Mine : MonoBehaviour
 {
 	[SerializeField]
@@ -52,7 +45,7 @@ public class Mine : MonoBehaviour
 
 	void OnTriggerEnter(Collider collider)
 	{
-		if (collider && collider.gameObject.layer == (int)LayerIndex.Player)
+		if (collider && LayerUtils.Is(collider.gameObject, LayerType.Player))
 		{
 			m_target = collider.transform;
 			m_currentSpeed = 0;
@@ -61,7 +54,7 @@ public class Mine : MonoBehaviour
 
 	void OnTriggerExit(Collider collider)
 	{
-		if (collider && collider.gameObject.layer == (int)LayerIndex.Player)
+		if (collider && LayerUtils.Is(collider.gameObject, LayerType.Player))
 		{
 			m_target = null;
 			m_currentSpeed = m_speed;

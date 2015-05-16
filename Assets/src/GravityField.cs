@@ -30,6 +30,8 @@ public class GravityField : MonoBehaviour
 
 		m_sphereCollider = GetComponent<SphereCollider>();
 		m_sphereCollider.isTrigger = true;
+
+		LayerUtils.CheckWarning(this.gameObject, LayerType.GravityField);
 	}
 
 	void OnTriggerEnter(Collider collider)

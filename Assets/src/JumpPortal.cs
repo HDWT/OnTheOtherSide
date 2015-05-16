@@ -27,7 +27,8 @@ public class JumpPortal : MonoBehaviour
 		if (!IsValid)
 			yield break;
 
-		yield return new WaitForSeconds(m_exitDelay);
+		if (m_exitDelay > 0)
+			yield return new WaitForSeconds(m_exitDelay);
 
 		if (collider)
 		{
