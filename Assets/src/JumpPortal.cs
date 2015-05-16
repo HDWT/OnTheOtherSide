@@ -46,6 +46,8 @@ public class JumpPortal : MonoBehaviour
 				Vector3 exitPoint = m_transform.InverseTransformVector(objTransform.position - m_transform.position);
 
 				objTransform.position = m_targetPortal.m_transform.position + m_targetPortal.m_transform.forward * exitPoint.z + m_targetPortal.transform.right * exitPoint.x;
+
+				collider.SendMessage("OnTeleport", SendMessageOptions.DontRequireReceiver);
 			}
 		}
 	}
@@ -72,7 +74,7 @@ public class JumpPortal : MonoBehaviour
 		Color gizmosColor = Gizmos.color;
 		Gizmos.color = Color.green;
 
-		Gizmos.DrawLine(m_transform.position, m_targetPortal.m_transform.position);
+		Gizmos.DrawLine(m_transform.position, m_targetPortal.transform.position);
 		Gizmos.color = gizmosColor;
 	}
 

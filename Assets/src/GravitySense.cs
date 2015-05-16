@@ -45,6 +45,23 @@ public class GravitySense : MonoBehaviour
 		return power;
 	}
 
+	public void Apply(Transform tr)
+	{
+		if (tr == null)
+			return;
+
+		Vector3 gravity = GetPower();
+		gravity.y = 0;
+
+		if (gravity != Vector3.zero)
+		{
+			Quaternion lookRotation = Quaternion.LookRotation(tr.forward + Vector3.Normalize(gravity));
+			tr.rotation = Quaternion.Lerp(tr.rotation, lookRotation, Time.deltaTime * Vector3.Magnitude(gravity));
+
+			Debug.DrawLine(tr.position, tr.position + tr.forward + Vector3.Normalize(gravity), Color.green);
+		}
+	}
+
 	void Update()
 	{
 		Vector3 power = GetPower();

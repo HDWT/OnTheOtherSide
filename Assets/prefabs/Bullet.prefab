@@ -1,5 +1,22 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &109984
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 448540}
+  - 114: {fileID: 11475326}
+  - 65: {fileID: 6578276}
+  m_Layer: 14
+  m_Name: Gravity Sense
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &114908
 GameObject:
   m_ObjectHideFlags: 0
@@ -61,6 +78,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 411330}
+  - {fileID: 448540}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &411330
@@ -88,6 +106,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 411330}
   m_RootOrder: 0
+--- !u!4 &448540
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 109984}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -.230000004}
+  m_LocalScale: {x: .268000007, y: .268000007, z: .268000007}
+  m_Children: []
+  m_Father: {fileID: 403640}
+  m_RootOrder: 1
 --- !u!23 &2379708
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -146,6 +176,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: .379999995, y: .209999993, z: .49000001}
   m_Center: {x: 0, y: .0299999993, z: -.140000001}
+--- !u!65 &6578276
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 109984}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11431558
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -159,7 +201,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_damage: 1
   m_speed: 30
-  m_lifeTime: 2
+  m_lifeTime: 4
+  m_gravitySense: {fileID: 11475326}
+--- !u!114 &11475326
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 109984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96287688fe2dd543a7d858ce458d1c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
