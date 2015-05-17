@@ -10,7 +10,7 @@ public class LineOfSight : MonoBehaviour
 		public float NearWidth	= 1;
 		public float FarWidth	= 2;
 		public float Length		= 3;
-		public float Height		= 1;
+		public float Height		= 4;
 
 		public bool Equal(Settings other)
 		{
@@ -138,12 +138,15 @@ public class LineOfSight : MonoBehaviour
 
 	private Vector3[] GetVerticesForRender()
 	{
-		Vector3 nearLeft	= -m_transform.right * m_settings.NearWidth;
-		Vector3 nearRight	= m_transform.right * m_settings.NearWidth;
+		Vector3 right		= m_transform.InverseTransformDirection(m_transform.right);
+		Vector3 forward		= m_transform.InverseTransformDirection(m_transform.forward);
 
-		Vector3 farLeft		= -m_transform.right * m_settings.FarWidth + m_transform.forward * m_settings.Length;
-		Vector3 farCenter	= m_transform.forward * (m_settings.Length + m_settings.FarWidth / 4.0f);
-		Vector3 farRight	= m_transform.right * m_settings.FarWidth + m_transform.forward * m_settings.Length;
+		Vector3 nearLeft	= -right * m_settings.NearWidth;
+		Vector3 nearRight	= right * m_settings.NearWidth;
+
+		Vector3 farLeft		= -right * m_settings.FarWidth + forward * m_settings.Length;
+		Vector3 farCenter	= forward * (m_settings.Length + m_settings.FarWidth / 4.0f);
+		Vector3 farRight	= right * m_settings.FarWidth + forward * m_settings.Length;
 
 		return new Vector3[] { nearLeft, nearRight, farLeft, farCenter, farRight };
 	}
@@ -190,16 +193,20 @@ public class LineOfSight : MonoBehaviour
 
 	private Vector3[] GetVerticesForCollider()
 	{
-		Vector3 nearLeft		= -m_transform.right * m_settings.NearWidth;
-		Vector3 nearRight		= m_transform.right * m_settings.NearWidth;
+		Vector3 right			= m_transform.InverseTransformDirection(m_transform.right);
+		Vector3 forward			= m_transform.InverseTransformDirection(m_transform.forward);
+		Vector3 up				= m_transform.InverseTransformDirection(m_transform.up);
 
-		Vector3 farLeftTop		= -m_transform.right * m_settings.FarWidth + m_transform.forward * m_settings.Length + m_transform.up * m_settings.Height;
-		Vector3 farCenterTop	= m_transform.forward * (m_settings.Length + m_settings.FarWidth / 4.0f) + m_transform.up * m_settings.Height;
-		Vector3 farRightTop		= m_transform.right * m_settings.FarWidth + m_transform.forward * m_settings.Length + m_transform.up * m_settings.Height;
+		Vector3 nearLeft		= -right * m_settings.NearWidth;
+		Vector3 nearRight		= right * m_settings.NearWidth;
 
-		Vector3 farLeftBottom	= -m_transform.right * m_settings.FarWidth + m_transform.forward * m_settings.Length - m_transform.up * m_settings.Height;
-		Vector3 farCenterBottom = m_transform.forward * (m_settings.Length + m_settings.FarWidth / 4.0f) - m_transform.up * m_settings.Height;
-		Vector3 farRightBottom	= m_transform.right * m_settings.FarWidth + m_transform.forward * m_settings.Length - m_transform.up * m_settings.Height;
+		Vector3 farLeftTop		= -right * m_settings.FarWidth + forward * m_settings.Length + up * m_settings.Height;
+		Vector3 farCenterTop	= forward * (m_settings.Length + m_settings.FarWidth / 4.0f) + up * m_settings.Height;
+		Vector3 farRightTop		= right * m_settings.FarWidth + forward * m_settings.Length + up * m_settings.Height;
+
+		Vector3 farLeftBottom	= -right * m_settings.FarWidth + forward * m_settings.Length - up * m_settings.Height;
+		Vector3 farCenterBottom = forward * (m_settings.Length + m_settings.FarWidth / 4.0f) - up * m_settings.Height;
+		Vector3 farRightBottom	= right * m_settings.FarWidth + forward * m_settings.Length - up * m_settings.Height;
 
 		return new Vector3[] { nearLeft, nearRight, farLeftTop, farCenterTop, farRightTop, farLeftBottom, farCenterBottom, farRightBottom };
 	}
