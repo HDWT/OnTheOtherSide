@@ -10,7 +10,7 @@ public class GravityField : MonoBehaviour
 	private Transform m_transform = null;
 	private SphereCollider m_sphereCollider = null;
 
-	public float Radius { get { return m_sphereCollider.radius * m_transform.localScale.x; } }
+	public float Radius { get { return m_sphereCollider.radius * 2 * m_transform.localScale.x; } }
 	public float Power  { get { return m_power; } }
 
 	public Transform cachedTransform

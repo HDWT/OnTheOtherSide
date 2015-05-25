@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_gravitySense: {fileID: 11462362}
-  m_launchSpeed: 20
+  m_launchSpeed: 15
   m_drag: 0
   m_muzzle: {fileID: 427306}
   m_bulletMaxAngle: 5

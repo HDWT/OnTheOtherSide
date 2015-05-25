@@ -14,4 +14,4 @@ MonoBehaviour:
   m_shipController: {fileID: 11469918, guid: daec33f22aef6974ebf9344a3ef96f60, type: 2}
   m_bullet: {fileID: 11431558, guid: c2b16cd85219f8d4599587699a163a4f, type: 2}
   m_explosionEffect: {fileID: 180002, guid: 096b7964454bc99458a885496f15393c, type: 2}
-  m_firstLevelName: level01
+  m_firstLevelName: level01_01_ortho
