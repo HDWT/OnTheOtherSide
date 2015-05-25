@@ -82,7 +82,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 178214}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -23.6700001}
+  m_LocalPosition: {x: 0, y: 0, z: -21}
   m_LocalScale: {x: 4, y: 1, z: 1}
   m_Children:
   - {fileID: 419016}
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_inputCollider: {fileID: 6450910}
   m_lineRenderer: {fileID: 12014656}
-  m_lineExtraLength: 3
+  m_lineExtraLength: 6
 --- !u!120 &12014656
 LineRenderer:
   m_ObjectHideFlags: 1

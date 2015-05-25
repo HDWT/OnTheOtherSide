@@ -25,3 +25,17 @@ EditorBuildSettings:
     path: Assets/scenes/orthographic/level01_09_ortho.unity
   - enabled: 1
     path: Assets/scenes/orthographic/level01_10_ortho.unity
+  - enabled: 1
+    path: Assets/scenes/orthographic/level02_01_ortho.unity
+  - enabled: 1
+    path: Assets/scenes/orthographic/level02_02_ortho.unity
+  - enabled: 1
+    path: Assets/scenes/orthographic/level02_03_ortho.unity
+  - enabled: 1
+    path: Assets/scenes/orthographic/level02_04_ortho.unity
+  - enabled: 1
+    path: Assets/scenes/orthographic/level02_05_ortho.unity
+  - enabled: 1
+    path: Assets/scenes/orthographic/level02_06_ortho.unity
+  - enabled: 1
+    path: Assets/scenes/orthographic/level02_07_ortho.unity
